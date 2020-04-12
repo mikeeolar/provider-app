@@ -1,0 +1,24 @@
+ion-avatar {
+  width: 70px;
+  height: 70px;
+  border: 1px solid var(--ion-color-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-card {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.booking-buttons {
+  margin-left: 0;
+  margin-right: 0;
+  display: flex;
+}
+
+.large {
+  width: 100%;
+  height: 35px;
+}

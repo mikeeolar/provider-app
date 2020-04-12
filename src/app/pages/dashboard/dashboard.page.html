@@ -1,0 +1,90 @@
+<ion-header no-border>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="sync"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Dashboard</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div style="z-index: inherit;">
+  <div class="central-text">
+    <h3 style="margin: 3px; font-weight: bold; font-size: 20px;">
+      {{ providerName }}
+    </h3>
+    <h5 style="color: white; text-align: center; margin: 0;">{{ category }}</h5>
+  </div>
+
+  <ion-avatar class="profile-pic" style="z-index: 1;">
+    <ion-img [src]="providerImage"></ion-img>
+  </ion-avatar>
+</div>
+
+<ion-content class="ion-no-padding ion-no-margin">
+    <div style="text-align: center; margin: 20px; font-size: 18px;">
+      <div><ion-label>GO OFFLINE</ion-label></div>
+      <ion-toggle
+        mode="ios"
+        color="primary"
+        checked
+        style="margin: 10px;"
+      ></ion-toggle>
+    </div>
+  
+    <ion-grid class="ion-no-padding ion-no-margin">
+      <ion-row>
+        <ion-col size-sm="10" offset-sm="1">
+          <ion-card style="padding: 20px;">
+            <ion-card-title class="ion-text-center">Work Location</ion-card-title>
+            <ion-card-content>
+              <ion-label
+                class="central"
+                style="font-size: 16px; text-align: center;"
+                >{{ currentLocation }}</ion-label
+              >
+              <div *ngIf="!currentLocation">
+                <ion-label style="text-align: center;">
+                  <ion-skeleton-text
+                    animated
+                    style="width: 90%;"
+                  ></ion-skeleton-text>
+                </ion-label>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row class="ion-no-padding ion-no-margin">
+        <ion-col
+          size-sm="3"
+          offset-sm="3"
+          style="text-align: center;"
+          class="ion-no-padding ion-no-margin"
+        >
+          <ion-card style="padding: 10px;">
+            <ion-avatar class="circ">
+              <div>
+                1
+              </div>
+            </ion-avatar>
+            <ion-label>Pending Jobs</ion-label>
+          </ion-card>
+        </ion-col>
+        <ion-col size-sm="3" style="text-align: center;">
+          <ion-card style="padding: 10px;">
+            <ion-avatar class="circ">
+              <div>
+                1
+              </div>
+            </ion-avatar>
+            <ion-label class="ion-text-center">Completed Jobs</ion-label>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>

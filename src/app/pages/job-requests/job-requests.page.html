@@ -1,0 +1,49 @@
+<ion-header no-border>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="sync"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Jobs</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-segment value="pending" scrollable="true" (ionChange)="segmentChanged($event)">
+  <ion-segment-button value="pending">PENDING</ion-segment-button>
+  <ion-segment-button value="upcoming">UPCOMING</ion-segment-button>
+  <ion-segment-button value="past">PAST</ion-segment-button>
+</ion-segment>
+<ion-content>
+  <ion-card button style="margin-bottom: 2px;" *ngFor="let jobs of allJobs" (click)="jobDetail(jobs.provider_id)">
+    <ion-grid>
+      <ion-row class="ion-align-items-end">
+        <ion-col class="ion-float-right ion-text-right">
+          {{ jobs.book_date }} {{ jobs.time_from }} - {{ jobs.time_to }}
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="3">
+          <ion-avatar style="margin-top: -5px;">
+            <ion-img [src]="serverImage + jobs.users.image"></ion-img>
+          </ion-avatar>
+        </ion-col>
+        <ion-col size-sm="9" style="padding-top: 0px;">
+          <ion-label class="ion-text-sm-left">
+            <h3 style="font-weight: bold; font-size: 18px;">
+              {{ jobs.users.first_name }} {{ jobs.users.last_name }}
+            </h3>
+            <h4 style="color: green">
+              <ion-icon name="location" slot="start"></ion-icon> Job Location
+            </h4>
+            <h4>{{ jobs.users.location }}</h4>
+            <h4>{{ jobs.users.address }}</h4>
+          </ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+</ion-content>

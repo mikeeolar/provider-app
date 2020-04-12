@@ -1,0 +1,5 @@
+{
+    "require": {
+        "larapacks/authorization": "^2.1"
+    }
+}

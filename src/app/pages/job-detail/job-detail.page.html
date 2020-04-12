@@ -1,0 +1,191 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end" style="margin-right: 10px;">
+      <ion-button>
+        <ion-icon name="sync"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Job Detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngFor="let jobs of allJobs">
+  <ion-grid>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <div class="row">
+          <div class="col1">
+            <ion-avatar>
+              <ion-img [src]="serverImage + jobs.users.image"></ion-img>
+            </ion-avatar>
+          </div>
+          <div class="col2">
+            <ion-grid>
+              <ion-row style="margin-bottom: -8px;">
+                <ion-col size-sm="12">
+                  <ion-label class="ion-text-wrap">
+                    <h2 style="font-weight: bold;">
+                      Name
+                    </h2>
+                    <h4>{{ jobs.users.first_name }} {{ jobs.users.last_name }}</h4>
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+
+              <ion-row style="margin-bottom: -8px;">
+                <ion-col size-sm="12">
+                  <ion-label class="ion-text-wrap">
+                    <h3 style="font-weight: bold;">
+                      Email
+                    </h3>
+                    <h4>{{ jobs.users.email }}</h4>
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+
+              <ion-row style="margin-bottom: -8px;">
+                <ion-col size-sm="12">
+                  <ion-label class="ion-text-wrap">
+                    <h3 style="font-weight: bold;">
+                      Location
+                    </h3>
+                    <h4>{{ jobs.users.location }}</h4>
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+
+              <ion-row style="margin-bottom: -8px;">
+                <ion-col size-sm="12">
+                  <ion-label class="ion-text-wrap">
+                    <h3 style="font-weight: bold;">
+                      Address
+                    </h3>
+                    <ion-text>{{ jobs.users.address }}</ion-text>
+                  </ion-label>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid class="ion-no-margin">
+    <ion-row
+      class="ion-no-margin"
+      style="margin-bottom: -12px; margin-top: -10px;"
+    >
+      <ion-col size-sm="8" offset-sm="2" class="ion-no padding ion-no-margin">
+        <ion-card-title
+          >Job Info</ion-card-title
+        >
+        <ion-card-subtitle
+          >Job ordered at {{ jobs.created_at }}</ion-card-subtitle
+        >
+      </ion-col>
+    </ion-row>
+    <ion-row
+      class="ion-no-margin"
+      style="margin-bottom: -12px; margin-top: -10px;"
+    >
+      <ion-col size-sm="8" offset-sm="2" class="ion-no padding ion-no-margin">
+        <h4
+          style="
+            font-weight: bold;
+            color: green;
+            font-size: 16px;
+            margin-bottom: 1px;
+          "
+        >
+          Job Task
+        </h4>
+        <ion-text>{{ jobs.service }}</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-bottom: -12px; margin-top: -10px;">
+      <ion-col size-sm="5" offset-sm="2">
+        <h4
+          style="
+            font-weight: bold;
+            color: green;
+            font-size: 16px;
+            margin-bottom: 1px;
+          "
+        >
+          Book Date <ion-icon name="calendar"></ion-icon>
+        </h4>
+        <ion-text>{{ jobs.book_date }}</ion-text>
+      </ion-col>
+      <ion-col size-sm="5">
+        <h4
+          style="
+            font-weight: bold;
+            color: green;
+            font-size: 16px;
+            margin-bottom: 1px;
+          "
+        >
+          Book Time <ion-icon name="time"></ion-icon>
+        </h4>
+        <ion-text>{{ jobs.time_from }}  {{ jobs.time_to }}</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="5" offset-sm="2">
+        <h4
+          style="
+            font-weight: bold;
+            color: green;
+            font-size: 16px;
+            margin-bottom: 1px;
+          "
+        >
+          Job Location <ion-icon name="location"></ion-icon>
+        </h4>
+        <ion-text>{{ jobs.location }}</ion-text>
+      </ion-col>
+      <ion-col size-sm="5">
+        <h4
+          style="
+            font-weight: bold;
+            color: green;
+            font-size: 16px;
+            margin-bottom: 1px;
+          "
+        >
+          Job Address <ion-icon name="navigate"></ion-icon>
+        </h4>
+        <ion-text>{{ jobs.address }}</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-bottom: -12px; margin-top: -10px;">
+      <ion-col size-sm="8" offset-sm="2">
+        <h4
+          style="
+            font-weight: bold;
+            color: green;
+            font-size: 16px;
+            margin-bottom: 1px;
+          "
+        >
+          Additional Information
+        </h4>
+        <ion-text
+          >{{ jobs.additional_info }}</ion-text
+        >
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-bottom: -12px; margin-top: -10px;">
+      <ion-col size-sm="5" offset-sm="2">
+        <ion-button expand="full" (click)="jobProgress(jobs.provider_id)">Accept</ion-button>
+      </ion-col>
+      <ion-col size-sm="5">
+        <ion-button expand="full">Decline</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
