@@ -23,6 +23,7 @@ export class JobRequestsPage implements OnInit {
   momentDate: string;
   isPending = true;
   jobStatus: string;
+  event: any;
 
   constructor(
     private router: Router,
@@ -38,19 +39,17 @@ export class JobRequestsPage implements OnInit {
       this.bookingService.getAllJobs(+fetchedId).subscribe((resData) => {
         if (resData[0].status === "Pending") {
           this.allJobs = resData;
+          this.jobStatus = resData[0].status;
         } else {
           this.allJobs = null;
+          this.jobStatus = resData[0].status;
         }
       });
     });
   }
 
-  jobDetail(providerId: number) {
-    this.router.navigate(['/job-detail', providerId]);
-  }
-
   ionViewWillEnter() {
-    this.ngOnInit();
+    
   }
 
   actionJob(providerId: number) {
@@ -77,6 +76,15 @@ export class JobRequestsPage implements OnInit {
     }
   }
 
+  refresh() {
+    this.ngOnInit();
+    this.authService.providerId.subscribe((fetchedId) => {
+      this.bookingService.getAcceptedJobs(+fetchedId).subscribe((resData) => {
+        this.allJobs = resData;
+      });
+    });
+  }
+
   segmentChanged(event: any) {
     if (event.detail.value === "pending") {
       this.isPending = true;
@@ -88,17 +96,28 @@ export class JobRequestsPage implements OnInit {
     } else if (event.detail.value === "upcoming") {
       this.isPending = false;
       this.authService.providerId.subscribe((fetchedId) => {
-        this.bookingService.getAcceptedJobs(+fetchedId).subscribe((resData) => {
-          this.allJobs = resData;
+        this.bookingService.getAllJobs(+fetchedId).subscribe((resData) => {
+          if (resData[0].status === "Accepted" || resData[0].status === "Started") {
+            this.allJobs = resData;
+          } else {
+            this.allJobs = null;
+          }
         });
       });
     } else if (event.detail.value === "past") {
-      this.isPending = false;
       this.authService.providerId.subscribe((fetchedId) => {
-        this.bookingService.getAcceptedJobs(+fetchedId).subscribe((resData) => {
-          this.allJobs = null;
+        this.bookingService.getAllJobs(+fetchedId).subscribe((resData) => {
+          if (resData[0].status === "Completed") {
+            this.allJobs = resData;
+          } else {
+            this.allJobs = null;
+          }
         });
       });
     }
+  }
+
+  jobDetail(providerId: number) {
+    this.router.navigate(["/job-detail", providerId]);
   }
 }

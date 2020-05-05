@@ -20,8 +20,8 @@ const routes: Routes = [
   },
   {
     path: 'job-requests',
-    loadChildren: () => import('./pages/job-requests/job-requests.module').then( m => m.JobRequestsPageModule)
-    // canActivate: [AuthGuard]
+    loadChildren: () => import('./pages/job-requests/job-requests.module').then( m => m.JobRequestsPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'notifications',
@@ -57,6 +57,10 @@ const routes: Routes = [
     path: 'job-detail/:provider-id',
     loadChildren: () => import('./pages/job-detail/job-detail.module').then( m => m.JobDetailPageModule)
     // canActivate: [AuthGuard]
+  },
+  {
+    path: 'job-history/:provider-id',
+    loadChildren: () => import('./pages/job-history/job-history.module').then( m => m.JobHistoryPageModule)
   },
 ];
 

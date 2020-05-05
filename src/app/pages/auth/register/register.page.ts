@@ -21,6 +21,20 @@ export class RegisterPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.alertCtrl
+      .create({
+        header: "Notice",
+        message: "Note!! After registering you won't be able to start receiving jobs and as you have not been verified. Visit our website to get more information on how to register and get verified.",
+        buttons: [
+          {
+            text: "Ok",
+            role: "cancel",
+          },
+        ]
+      })
+      .then((alertEl) => {
+        alertEl.present();
+      });
     this.menuCtrl.swipeGesture(false);
     this.form = new FormGroup({
       firstName: new FormControl(null, {

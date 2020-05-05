@@ -74,6 +74,7 @@ export class DashboardPage implements OnInit {
     geocoder.geocode({ location }, (results, status) => {
       if (status === google.maps.GeocoderStatus.OK) {
         this.currentLocation = results[0].formatted_address;
+        console.log(results);
       } else {
         alert("Geocode was not successful for the following reason: " + status);
       }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController, AlertController } from '@ionic/angular';
-import { JobPopoverMenuComponent } from 'src/app/shared/pickers/job-popover-menu/job-popover-menu.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BookingService } from 'src/app/services/booking.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -9,11 +8,11 @@ import { Handy } from 'src/app/models/types';
 import * as moment from "moment";
 
 @Component({
-  selector: 'app-job-progress',
-  templateUrl: './job-progress.page.html',
-  styleUrls: ['./job-progress.page.scss'],
+  selector: 'app-job-history',
+  templateUrl: './job-history.page.html',
+  styleUrls: ['./job-history.page.scss'],
 })
-export class JobProgressPage implements OnInit {
+export class JobHistoryPage implements OnInit {
   serverImage: string;
   allJobs: Handy[];
   userId: number;
@@ -50,10 +49,6 @@ export class JobProgressPage implements OnInit {
         this.bookingId = resData[0].bookings.id;
         this.providerId = resData[0].providers.id;
 
-        // this.acceptjobTime = moment(resData[0].accepted_at).format("h:mma");
-        // this.startJobTime = moment(resData[0].started_at).format("h:mma");
-        // this.completeJobTime = moment(resData[0].completed_at).format("h:mma");
-
         this.acceptjobTime = moment(resData[0].accepted_at).format("DD-MM-YYYY h:mma");
         this.startJobTime = moment(resData[0].started_at).format("DD-MM-YYYY h:mma");
         this.completeJobTime = moment(resData[0].completed_at).format("DD-MM-YYYY h:mma");
@@ -65,62 +60,4 @@ export class JobProgressPage implements OnInit {
   ionViewWillEnter() {
     this.ngOnInit();
   }
-
-  startJob() {
-    this.alertCtrl.create({
-      header: "Confirmation",
-      message:
-        "Are you sure you want to start this Job",
-      buttons: [
-        {
-          text: "Yes",
-          handler: () => {
-            this.bookingService.startJobStatus(this.providerId).subscribe( () => {
-              this.ionViewWillEnter();
-            });
-          }
-        },
-        {
-          text: "No",
-          role: "cancel"
-        }
-      ],
-    }).then(alertEl => {
-      alertEl.present();
-    });
-  }
-
-  completeJob() {
-    this.alertCtrl.create({
-      header: "Confirmation",
-      message:
-        "Are you sure this Job is completed",
-      buttons: [
-        {
-          text: "Yes",
-          handler: () => {
-            this.bookingService.completeJobStatus(this.providerId).subscribe( () => {
-              this.ionViewWillEnter();
-            });
-          }
-        },
-        {
-          text: "No",
-          role: "cancel"
-        }
-      ],
-    }).then(alertEl => {
-      alertEl.present();
-    });
-  }
-
-  async presentPopover(ev: any) {
-    const popover = await this.popoverCrtl.create({
-      component: JobPopoverMenuComponent,
-      event: ev,
-      translucent: true
-    });
-    return await popover.present();
-  }
-
 }

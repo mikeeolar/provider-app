@@ -80,12 +80,9 @@
       style="margin-bottom: -12px; margin-top: -10px;"
     >
       <ion-col size-sm="8" offset-sm="2" class="ion-no padding ion-no-margin">
-        <ion-card-title
+        <ion-card-title style="font-weight: bold; color: green;"
           >Job Info</ion-card-title
-        >
-        <ion-card-subtitle
-          >Job ordered at {{ jobs.created_at }}</ion-card-subtitle
-        >
+        ><ion-text>Job ordered at {{ jobs.created_at }}</ion-text>
       </ion-col>
     </ion-row>
     <ion-row
@@ -179,12 +176,43 @@
         >
       </ion-col>
     </ion-row>
-    <ion-row style="margin-bottom: -12px; margin-top: -10px;">
+    <ion-row style="margin-bottom: -12px; margin-top: -10px;" *ngIf="jobs.status == 'Pending'">
       <ion-col size-sm="5" offset-sm="2">
         <ion-button expand="full" (click)="jobProgress(jobs.provider_id)">Accept</ion-button>
       </ion-col>
       <ion-col size-sm="5">
         <ion-button expand="full">Decline</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-bottom: -12px; margin-top: -10px;" *ngIf="jobs.status == 'Accepted'">
+      <ion-col size-sm="5" offset-sm="2">
+        <ion-button expand="full" (click)="startJob()">Start Job</ion-button>
+      </ion-col>
+      <ion-col size-sm="5">
+        <ion-button expand="full">Cancel Job</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-bottom: -12px; margin-top: -10px;" *ngIf="jobs.status == 'Accepted'">
+      <ion-col size-sm="10" offset-sm="2">
+        <ion-button expand="full" (click)="jobHistory()">Job Progress</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-bottom: -12px; margin-top: -10px;" *ngIf="jobs.status == 'Started'">
+      <ion-col size-sm="5" offset-sm="2">
+        <ion-button expand="full" (click)="completeJob()">Complete Job</ion-button>
+      </ion-col>
+      <ion-col size-sm="5">
+        <ion-button expand="full">Cancel Job</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-bottom: 2px; margin-top: 30px;" *ngIf="jobs.status == 'Completed'">
+      <ion-col size-sm="5" offset-sm="2">
+        <ion-label style="text-align: center;">This job has been completed. Check job history</ion-label>
+        <ion-button expand="full" (click)="jobHistory()">Job History</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

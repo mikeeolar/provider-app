@@ -9,17 +9,39 @@ export interface Service {
   };
 }
 
+export interface Bookings {
+  id: number;
+  user_id: number;
+  provider_id: number;
+  category: string;
+  service: string;
+  book_date: string;
+  time_from: string;
+  time_to: string;
+  location: string;
+  address: string;
+  additional_info: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+}
+
+
 export interface Handy {
   users: Users;
   providers: Providers
   categories: Categories;
   services: Services;
+  bookings: Bookings;
   ProviderServices: any;
   ProviderProfile: any;
   ProviderBookings: any;
   Jobs: any;
   id: number;
   user_id: number;
+  accepted_at: string;
+  started_at: string;
+  completed_at: string;
   provider_id: number;
   professional_summary: string;
   experience: string;

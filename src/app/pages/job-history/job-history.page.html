@@ -3,12 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-buttons slot="end" style="margin-right: 10px;">
-      <ion-button (click)="presentPopover($event)">
-        <ion-icon name="ellipsis-vertical"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title>Job Progress</ion-title>
+    <ion-title>Job History</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -38,14 +33,6 @@
                       {{ jobs.bookings.book_date }} {{ jobs.bookings.time_from
                       }} - {{ jobs.bookings.time_to }}
                     </h3>
-                    <h3 style="display: flex;">
-                      <ion-fab-button size="small" class="ion-no-border">
-                        <ion-icon name="call"></ion-icon>
-                      </ion-fab-button>
-                      <ion-fab-button size="small" class="ion-no-border">
-                        <ion-icon name="chatbox-ellipses-outline"></ion-icon>
-                      </ion-fab-button>
-                    </h3>
                   </ion-label>
                 </ion-col>
               </ion-row>
@@ -66,20 +53,13 @@
     JOB PROGRESS
   </div>
   <ion-item
-    lines="full"
-    *ngIf="jobs.status == 'Accepted' || jobs.status == 'Started' || jobs.status == 'Completed'"
-  >
+    lines="full">
     <ion-grid>
-      <ion-row>
-        <ion-col class="ion-float-right ion-text-right">
-          {{ acceptjobTime }}
-        </ion-col>
-      </ion-row>
       <ion-row>
         <ion-col size="2" class="ion-no-padding">
           <ion-avatar
             style="
-              margin-top: -20px;
+              margin-top: 2px;
               display: flex;
               justify-content: center;
               align-items: center;
@@ -96,28 +76,21 @@
           </ion-avatar>
         </ion-col>
         <ion-col size-sm="10" style="padding-top: 0px;">
-          <ion-label>
-            You have accepted the request
+          <ion-label class="ion-text-wrap">
+            Job request was accepted at exactly {{ acceptjobTime }}
           </ion-label>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-item>
   <ion-item
-    lines="full"
-    *ngIf="jobs.status == 'Started' || jobs.status == 'Completed'"
-  >
+    lines="full">
     <ion-grid>
-      <ion-row>
-        <ion-col class="ion-float-right ion-text-right">
-          {{ startJobTime }}
-        </ion-col>
-      </ion-row>
       <ion-row>
         <ion-col size="2" class="ion-no-padding">
           <ion-avatar
             style="
-              margin-top: -17px;
+              margin-top: 2px;
               display: flex;
               justify-content: center;
               align-items: center;
@@ -134,8 +107,8 @@
           </ion-avatar>
         </ion-col>
         <ion-col size-sm="10" style="padding-top: 0px;">
-          <ion-label>
-            Job Request Started
+          <ion-label class="ion-text-wrap">
+            Job request was started at exactly {{ startJobTime }}
           </ion-label>
         </ion-col>
       </ion-row>
@@ -145,15 +118,10 @@
   <ion-item lines="full" *ngIf="jobs.status == 'Completed'">
     <ion-grid>
       <ion-row>
-        <ion-col class="ion-float-right ion-text-right">
-          {{ completeJobTime }}
-        </ion-col>
-      </ion-row>
-      <ion-row>
         <ion-col size="2" class="ion-no-padding">
           <ion-avatar
             style="
-              margin-top: -17px;
+              margin-top: 2px;
               display: flex;
               justify-content: center;
               align-items: center;
@@ -170,19 +138,11 @@
           </ion-avatar>
         </ion-col>
         <ion-col size-sm="10" style="padding-top: 0px;">
-          <ion-label>
-            Job Request Completed
+          <ion-label class="ion-text-wrap">
+            Job request was Completed at exactly {{ completeJobTime }}
           </ion-label>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-item>
 </ion-content>
-<div *ngFor="let jobs of allJobs">
-  <ion-footer *ngIf="jobs.status == 'Accepted'">
-    <ion-button expand="full" (click)="startJob()">Start Job</ion-button>
-  </ion-footer>
-  <ion-footer *ngIf="jobs.status == 'Started'">
-    <ion-button expand="full" (click)="completeJob()">Complete Job</ion-button>
-  </ion-footer>
-</div>

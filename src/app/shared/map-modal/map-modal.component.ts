@@ -65,6 +65,26 @@ export class MapModalComponent implements OnInit, AfterViewInit {
               panel: this.panelElementRef.nativeElement
             });
 
+            // const marker1 = new google.maps.Marker({
+            //   position: location,
+            //   label: "My Location",
+            //   map: map
+            // });
+
+            // const geo = new google.maps.Geocoder();
+            // const address = this.providerLocation;
+            // geo.geocode({ 'address': address }, function(results, status) {
+            //   const latitude = results[0].geometry.location.lat();
+            //   const longitude = results[0].geometry.location.lng();
+            //   const pos = new google.maps.LatLng(latitude, longitude);
+            //   const marker2 = new google.maps.Marker({
+            //     position: pos,
+            //     label: "U",
+            //     map: map
+            //   });
+            // });
+            
+
             const geocoder = new google.maps.Geocoder();
             this.calculateAndDisplayRoute(
               directionsService,
@@ -105,7 +125,7 @@ export class MapModalComponent implements OnInit, AfterViewInit {
             const location = new google.maps.LatLng(lat, lng);
             const map = new google.maps.Map(mapEl, {
               center: location,
-              zoom: 64
+              zoom: 16
             });
 
             const directionsService = new google.maps.DirectionsService();

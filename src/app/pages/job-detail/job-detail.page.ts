@@ -14,6 +14,9 @@ import { environment } from 'src/environments/environment';
 export class JobDetailPage implements OnInit {
   serverImage: string;
   allJobs: Handy[];
+  userId: number;
+  bookingId: number;
+  providerId: number;
 
   constructor(
     private router: Router,
@@ -28,14 +31,71 @@ export class JobDetailPage implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(paraMap => {
       this.bookingService.getAllJobs(+paraMap.get('provider-id')).subscribe((resData) => {
+        this.providerId = +paraMap.get('provider-id');
         this.allJobs = resData;
+        this.userId = resData[0].user_id;
+        this.bookingId = resData[0].id
       });
+    });
+  }
+
+  startJob() {
+    this.alertCtrl.create({
+      header: "Confirmation",
+      message:
+        "Are you sure you want to start this Job",
+      buttons: [
+        {
+          text: "Yes",
+          handler: () => {
+            this.bookingService.startJobStatus(this.providerId).subscribe( () => {
+              this.router.navigate(["/job-progress", this.providerId]);
+            });
+          }
+        },
+        {
+          text: "No",
+          role: "cancel"
+        }
+      ],
+    }).then(alertEl => {
+      alertEl.present();
+    });
+  }
+
+  completeJob() {
+    this.alertCtrl.create({
+      header: "Confirmation",
+      message:
+        "Are you sure this Job is completed",
+      buttons: [
+        {
+          text: "Yes",
+          handler: () => {
+            this.bookingService.completeJobStatus(this.providerId).subscribe( () => {
+              this.router.navigate(["/job-progress", this.providerId]);
+            });
+          }
+        },
+        {
+          text: "No",
+          role: "cancel"
+        }
+      ],
+    }).then(alertEl => {
+      alertEl.present();
     });
   }
 
   jobProgress(providerId: number) {
     this.bookingService.acceptJobStatus(providerId).subscribe( () => {
-      this.router.navigate(["/job-progress", providerId]);
-    });
+      this.bookingService.storeJob(providerId, this.userId, this.bookingId).subscribe ( () => {
+        this.router.navigate(["/job-progress", providerId]);
+      });
+    }); 
+  }
+
+  jobHistory() {
+    this.router.navigate(["/job-history", this.providerId]);
   }
 }
